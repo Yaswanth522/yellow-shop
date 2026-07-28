@@ -11,22 +11,13 @@ const PRODUCT_CATEGORIES = [
 
 const PURCHASE_SOURCES = ['Online', 'Retail Store', 'Reseller', 'Other']
 
-const USE_CASES = ['Personal', 'Business', 'Gift', 'Other']
-
-const USAGE_FREQUENCIES = ['Daily', 'Weekly', 'Monthly', 'Rarely']
-
 const INITIAL_FORM = {
   ownerName: '',
   email: '',
-  phone: '',
   productName: '',
   productCategory: '',
-  serialNumber: '',
-  purchaseDate: '',
   purchaseSource: '',
-  useCase: '',
-  usageFrequency: '',
-  comments: '',
+  purchaseDate: '',
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -43,8 +34,6 @@ function validate(form) {
   if (!form.productName.trim()) errors.productName = 'Please enter the product name.'
   if (!form.productCategory) errors.productCategory = 'Please select a category.'
   if (!form.purchaseSource) errors.purchaseSource = 'Please select where it was purchased.'
-  if (!form.useCase) errors.useCase = 'Please select a primary use case.'
-  if (!form.usageFrequency) errors.usageFrequency = 'Please select how often you use it.'
 
   return errors
 }
@@ -116,30 +105,17 @@ export default function ProductRegistrationForm() {
           {errors.ownerName && <span className="field-error">{errors.ownerName}</span>}
         </div>
 
-        <div className="field-row">
-          <div className="field">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              placeholder="jane@example.com"
-              value={form.email}
-              onChange={handleChange('email')}
-              aria-invalid={Boolean(errors.email)}
-            />
-            {errors.email && <span className="field-error">{errors.email}</span>}
-          </div>
-
-          <div className="field">
-            <label htmlFor="phone">Phone (optional)</label>
-            <input
-              id="phone"
-              type="tel"
-              placeholder="+1 555 123 4567"
-              value={form.phone}
-              onChange={handleChange('phone')}
-            />
-          </div>
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="jane@example.com"
+            value={form.email}
+            onChange={handleChange('email')}
+            aria-invalid={Boolean(errors.email)}
+          />
+          {errors.email && <span className="field-error">{errors.email}</span>}
         </div>
       </fieldset>
 
@@ -181,29 +157,6 @@ export default function ProductRegistrationForm() {
           </div>
 
           <div className="field">
-            <label htmlFor="serialNumber">Model / serial number (optional)</label>
-            <input
-              id="serialNumber"
-              type="text"
-              placeholder="e.g. YLW-2024-XJ7"
-              value={form.serialNumber}
-              onChange={handleChange('serialNumber')}
-            />
-          </div>
-        </div>
-
-        <div className="field-row">
-          <div className="field">
-            <label htmlFor="purchaseDate">Purchase date (optional)</label>
-            <input
-              id="purchaseDate"
-              type="date"
-              value={form.purchaseDate}
-              onChange={handleChange('purchaseDate')}
-            />
-          </div>
-
-          <div className="field">
             <label htmlFor="purchaseSource">Where purchased</label>
             <select
               id="purchaseSource"
@@ -223,59 +176,14 @@ export default function ProductRegistrationForm() {
             )}
           </div>
         </div>
-      </fieldset>
-
-      <fieldset className="form-section">
-        <legend>How you use it</legend>
-
-        <div className="field-row">
-          <div className="field">
-            <label htmlFor="useCase">Primary use case</label>
-            <select
-              id="useCase"
-              value={form.useCase}
-              onChange={handleChange('useCase')}
-              aria-invalid={Boolean(errors.useCase)}
-            >
-              <option value="">Select an option</option>
-              {USE_CASES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            {errors.useCase && <span className="field-error">{errors.useCase}</span>}
-          </div>
-
-          <div className="field">
-            <label htmlFor="usageFrequency">Usage frequency</label>
-            <select
-              id="usageFrequency"
-              value={form.usageFrequency}
-              onChange={handleChange('usageFrequency')}
-              aria-invalid={Boolean(errors.usageFrequency)}
-            >
-              <option value="">Select an option</option>
-              {USAGE_FREQUENCIES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            {errors.usageFrequency && (
-              <span className="field-error">{errors.usageFrequency}</span>
-            )}
-          </div>
-        </div>
 
         <div className="field">
-          <label htmlFor="comments">Additional comments (optional)</label>
-          <textarea
-            id="comments"
-            rows={4}
-            placeholder="Anything else you'd like us to know?"
-            value={form.comments}
-            onChange={handleChange('comments')}
+          <label htmlFor="purchaseDate">Purchase date (optional)</label>
+          <input
+            id="purchaseDate"
+            type="date"
+            value={form.purchaseDate}
+            onChange={handleChange('purchaseDate')}
           />
         </div>
       </fieldset>
