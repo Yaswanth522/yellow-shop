@@ -104,6 +104,48 @@ textarea {
   color: var(--error);
 }
 
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.autocomplete-option {
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.autocomplete-option-highlighted {
+  background: var(--accent-soft);
+}
+
+.autocomplete-option-selected {
+  font-weight: 600;
+}
+
+.autocomplete-empty {
+  padding: 9px 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
 .btn-primary {
   width: 100%;
   padding: 13px 20px;

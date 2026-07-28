@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import AutocompleteSelect from './AutocompleteSelect.jsx'
 import './ProductRegistrationForm.css'
 
 const PRODUCT_CATEGORIES = [
@@ -49,6 +50,13 @@ export default function ProductRegistrationForm() {
   function handleChange(field) {
     return (event) => {
       setForm((prev) => ({ ...prev, [field]: event.target.value }))
+      setErrors((prev) => ({ ...prev, [field]: undefined }))
+    }
+  }
+
+  function handleSelectChange(field) {
+    return (value) => {
+      setForm((prev) => ({ ...prev, [field]: value }))
       setErrors((prev) => ({ ...prev, [field]: undefined }))
     }
   }
@@ -139,45 +147,25 @@ export default function ProductRegistrationForm() {
         </div>
 
         <div className="field-row">
-          <div className="field">
-            <label htmlFor="productCategory">Product category</label>
-            <select
-              id="productCategory"
-              value={form.productCategory}
-              onChange={handleChange('productCategory')}
-              aria-invalid={Boolean(errors.productCategory)}
-            >
-              <option value="">Select a category</option>
-              {PRODUCT_CATEGORIES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            {errors.productCategory && (
-              <span className="field-error">{errors.productCategory}</span>
-            )}
-          </div>
+          <AutocompleteSelect
+            id="productCategory"
+            label="Product category"
+            placeholder="Select a category"
+            options={PRODUCT_CATEGORIES}
+            value={form.productCategory}
+            onChange={handleSelectChange('productCategory')}
+            error={errors.productCategory}
+          />
 
-          <div className="field">
-            <label htmlFor="purchaseSource">Where purchased</label>
-            <select
-              id="purchaseSource"
-              value={form.purchaseSource}
-              onChange={handleChange('purchaseSource')}
-              aria-invalid={Boolean(errors.purchaseSource)}
-            >
-              <option value="">Select an option</option>
-              {PURCHASE_SOURCES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            {errors.purchaseSource && (
-              <span className="field-error">{errors.purchaseSource}</span>
-            )}
-          </div>
+          <AutocompleteSelect
+            id="purchaseSource"
+            label="Where purchased"
+            placeholder="Select an option"
+            options={PURCHASE_SOURCES}
+            value={form.purchaseSource}
+            onChange={handleSelectChange('purchaseSource')}
+            error={errors.purchaseSource}
+          />
         </div>
 
         <div className="field">
