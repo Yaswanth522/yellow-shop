@@ -1,0 +1,6 @@
+.register-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px 48px;
+}

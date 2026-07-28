@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yellow</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script type="text/javascript">
+      (function () {
+        var e = document.createElement("script");
+        e.src = "https://cdn.yellowmessenger.com/plugin/widget-v3/prod/dist/loader.umd.js";
+        e.async = !0;
+        e.onload = function () {
+          ChatWidget.init({
+            yellowMessenger: { botId: "x1785222350996", host: "https://r4.nexus.yellow.ai" },
+          });
+        };
+        document.head.appendChild(e);
+      })();
+    </script>
+  </body>
+</html>
