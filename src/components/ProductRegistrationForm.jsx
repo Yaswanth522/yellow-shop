@@ -5,7 +5,6 @@ const PRODUCT_CATEGORIES = [
   'Electronics',
   'Home Appliance',
   'Wearable',
-  'Software / App',
   'Other',
 ]
 
@@ -21,6 +20,7 @@ const INITIAL_FORM = {
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const PURCHASE_DATE_PATTERN = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$/
 
 function validate(form) {
   const errors = {}
@@ -34,6 +34,9 @@ function validate(form) {
   if (!form.productName.trim()) errors.productName = 'Please enter the product name.'
   if (!form.productCategory) errors.productCategory = 'Please select a category.'
   if (!form.purchaseSource) errors.purchaseSource = 'Please select where it was purchased.'
+  if (form.purchaseDate.trim() && !PURCHASE_DATE_PATTERN.test(form.purchaseDate.trim())) {
+    errors.purchaseDate = 'Please use MM/DD/YYYY format.'
+  }
 
   return errors
 }
@@ -181,10 +184,13 @@ export default function ProductRegistrationForm() {
           <label htmlFor="purchaseDate">Purchase date (optional)</label>
           <input
             id="purchaseDate"
-            type="date"
+            type="text"
+            placeholder="MM/DD/YYYY"
             value={form.purchaseDate}
             onChange={handleChange('purchaseDate')}
+            aria-invalid={Boolean(errors.purchaseDate)}
           />
+          {errors.purchaseDate && <span className="field-error">{errors.purchaseDate}</span>}
         </div>
       </fieldset>
 
