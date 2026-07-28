@@ -6,20 +6,31 @@ export default function AutocompleteSelect({ id, label, options, value, onChange
   const [highlighted, setHighlighted] = useState(0)
   const containerRef = useRef(null)
 
+  const filtered = query
+    ? options.filter((option) => option.toLowerCase().includes(query.toLowerCase()))
+    : options
+
+  function resolveAndClose() {
+    if (query !== null && query.trim() !== '') {
+      const trimmed = query.trim().toLowerCase()
+      const exact = options.find((option) => option.toLowerCase() === trimmed)
+      const bestMatch = options.find((option) => option.toLowerCase().includes(trimmed))
+      const fallback = options.includes('Other') ? 'Other' : value
+      onChange(exact || bestMatch || fallback)
+    }
+    setQuery(null)
+    setOpen(false)
+  }
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
-        setOpen(false)
-        setQuery(null)
+        resolveAndClose()
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  const filtered = query
-    ? options.filter((option) => option.toLowerCase().includes(query.toLowerCase()))
-    : options
+  })
 
   function openList() {
     setOpen(true)
@@ -79,6 +90,7 @@ export default function AutocompleteSelect({ id, label, options, value, onChange
         onFocus={openList}
         onClick={openList}
         onKeyDown={handleKeyDown}
+        onBlur={resolveAndClose}
         aria-invalid={Boolean(error)}
       />
       {open && (

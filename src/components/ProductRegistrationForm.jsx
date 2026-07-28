@@ -182,7 +182,7 @@ export default function ProductRegistrationForm() {
         </div>
       </fieldset>
 
-      <button type="submit" className="btn-primary">
+      <button id="registerSubmit" type="submit" className="btn-primary">
         Register product
       </button>
     </form>
